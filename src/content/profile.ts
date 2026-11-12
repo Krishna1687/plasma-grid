@@ -1,0 +1,15 @@
+export const profile = {
+  name: 'Chowdam Rama Krishna',
+  shortName: 'Rama Krishna',
+  initials: 'CRK',
+  role: 'Site Reliability Engineer',
+  employer: 'Coforge',
+  location: 'Delhi, India',
+  headline: 'Site Reliability Engineer | Cloud & Observability | Creative Developer',
+  email: 'chowdamramakrishna636@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/chowdam-rama-krishna-470328237',
+  github: undefined as string | undefined,
+  introduction: 'I monitor applications, investigate incidents, and build interactive experiences for the web.',
+  summary: 'I’m a Site Reliability Engineer at Coforge. I monitor application performance, investigate incidents, and use logs and alerts to spot issues early. My background includes cloud infrastructure management and application performance monitoring.',
+  interests: ['Application monitoring', 'Incident response', 'Root cause analysis', 'Cloud infrastructure'],
+};
