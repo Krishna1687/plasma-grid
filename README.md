@@ -1,86 +1,63 @@
 # PLASMA GRID
 
-A static React and Three.js portfolio for Chowdam Rama Krishna, with three rotatable WebGL models, a scroll-driven Warp Zone, a synthetic Observability Lab, and an incident response Practice Lab.
+### Interactive 3D SRE & Creative Developer Portfolio
 
-## Local development
+![Live PLASMA GRID homepage showing its navigation, introductory headline, and green 3D core](docs/images/plasma-grid-preview.png)
 
-Use Node.js 22.12 or newer.
+[🌐 View Live Website](https://plasma-grid.pages.dev/)
 
-```sh
+PLASMA GRID is Chowdam Rama Krishna’s portfolio for site reliability engineering and creative development. It brings together professional experience, hands-on incident simulations, and interactive 3D work in a single website.
+
+## Explore the portfolio
+
+| Feature | What you can do |
+| --- | --- |
+| **Interactive 3D Hero** | Drag the rotating WebGL core to inspect it from different angles. |
+| **Observability Lab** | Explore synthetic service telemetry, change time ranges and services, and compare healthy operations, database slowdown, and service outage. |
+| **Quantum Fracture** | Scroll through a five-stage 3D sequence that breaks apart a faceted sculpture and reassembles it when you scroll back. |
+| **Practice Lab** | Investigate a simulated incident using metrics and logs, identify the cause, and apply a recovery action. |
+| **Professional Experience and Certifications** | Review Chowdam’s roles at Coforge, education, and credentials in observability, cloud, and AI. |
+| **Featured Projects** | Browse project pages for the Classroom Management System and the ALPHABET WAR game prototype. |
+| **Creative Lab** | Browse a filterable gallery with placeholders for digital art, character studies, game concepts, and experiments. |
+
+The labs use simulated data and keep independent sessions. The site supports reduced motion and provides static artwork where WebGL is unavailable.
+
+## Technology stack
+
+| Area | Tools |
+| --- | --- |
+| Application | React 19, TypeScript, Vite, React Router |
+| 3D and motion | Three.js, React Three Fiber, Drei, Motion |
+| Charts and interface | Recharts, Tailwind CSS, Lucide React |
+| Browser testing | Playwright with Chromium |
+| Hosting | Cloudflare Pages with Git integration |
+
+## Run locally
+
+Requires Node.js 22.12 or newer.
+
+~~~sh
 npm ci
 npm run dev
-npm run check
-npm run build
-npm run preview
-```
+~~~
 
-The production build is written to `dist/`. Browser tests run against the production preview.
+Use `npm run check` for TypeScript checks, `npm run build` to generate `dist/`, and `npm run preview` to serve that build locally.
 
-```sh
+~~~sh
 npx playwright install chromium
+npm run build
 npm test
-```
+~~~
 
-Set `PLASMA_GRID_BROWSER_PATH` to an installed Chromium executable if needed.
+The browser tests run against the production preview. Set `PLASMA_GRID_BROWSER_PATH` to an installed Chromium executable if needed.
 
-## Content
+## Project structure
 
-Edit `src/content/` to update profile details, roles, credentials, skills, projects, and artwork. Project repository and demo links appear when added to the corresponding entries. Set the optional GitHub profile in `src/content/profile.ts`. The public resume is a separate, purpose-built file at `public/resume.pdf`. Replace it when the resume changes.
+- [src/content/](src/content/) holds the profile, experience, certifications, skills, project details, artwork, and synthetic telemetry model.
+- [src/Scene.tsx](src/Scene.tsx) and [src/WarpScene.tsx](src/WarpScene.tsx) render the 3D scenes.
+- [public/](public/) contains the downloadable résumé and static assets.
+- [tests/](tests/) covers navigation, URL cleanup, observability, and interactive behavior.
 
-Both labs use `src/content/telemetry.ts` and keep independent session state. The engine uses a fixed UTC clock and seeded one-minute samples. Service failures and latency propagate through modeled dependencies. Error rate is failed requests divided by total requests. Each service runs 20 modeled probes per minute. The pass count uses request success and a 450 ms latency objective. Traffic is based on modeled successful and failed response byte counts. All-services request totals count observations across services, so one user request can contribute to multiple service totals. The dashboard aggregates exact 1H, 6H, and 24H windows. Recovery appends history, and reloads start a fresh simulation.
+## Deployment
 
-In the Practice Lab, select Start, inspect the latest metrics and logs, then choose a root cause and apply a recovery action. Pause freezes the clock and recovery controls. Restart resets the exercise.
-
-The Warp Zone uses a separate Three.js canvas. Scroll progress controls seeded, pre-separated shards, light, camera movement, and the exit fade. The fragment path reverses at the same scroll position. Reduced-motion and WebGL fallback show an assembled still, and smaller screens use fewer shards and streaks.
-
-The contact links use the profile email and open the visitor’s mail client.
-
-## Free static hosting
-
-Create a GitHub repository, push the workspace source to its `main` branch, and commit the npm lockfile. For a new local repository, run the following after creating the remote.
-
-```sh
-git init
-git add .
-git commit -m "Build PLASMA GRID portfolio"
-git branch -M main
-git remote add origin <your-repository-url>
-git push -u origin main
-```
-
-**Vercel**. Import the GitHub repository as a Vite project. The checked-in configuration builds with `npm run build` and serves `dist/`. No environment variables are required.
-
-**GitHub Pages**. In the repository’s Pages settings, select GitHub Actions as the source. Run the included workflow manually from the Actions tab. Relative asset paths and hash-based project routes support repository subpaths and direct project links.
-
-Both providers supply HTTPS for their default domain. For a custom domain, add it in your chosen provider’s project settings, set the DNS records it specifies, and wait for domain verification and certificate issuance. Enable Enforce HTTPS on GitHub Pages once the certificate is available.
-
-## Upgrade files
-
-| Area | Files |
-| --- | --- |
-| Site layout, navigation, and styles | src/App.tsx, src/main.tsx, src/styles.css |
-| Observability and Practice labs | src/Observability.tsx, src/PracticeLab.tsx, src/content/telemetry.ts |
-| Warp Zone and WebGL fallback | src/WarpZone.tsx, src/WarpScene.tsx, src/warpMotion.ts, src/webgl.tsx |
-| Skills and credentials | src/content/skills.ts, src/content/certifications.ts |
-| Branding and tooling | index.html, public/favicon.svg, package.json, package-lock.json, .github/workflows/pages.yml |
-| Verification and documentation | playwright.config.ts, tests/portfolio.spec.ts, tests/simulation.spec.ts, README.md |
-
-## Verification limits
-
-The dashboard and Practice Lab are local synthetic simulations. Refreshing resets both sessions. The Warp Zone shows a static crystal when WebGL is unavailable or reduced motion is requested. The Three.js library is loaded separately and may trigger a bundle-size warning during the build.
-
-The browser suite uses Chromium, including an emulated touch viewport. Manual compatibility checks on physical mobile devices and Safari remain useful for comparing GPU performance and touch behavior.
-
-## Cloudflare Pages
-
-In Cloudflare, open Workers & Pages, choose Create application, then Pages and Connect to Git. Authorize the GitHub integration for `Krishna1687/plasma-grid`. Use the following build settings.
-
-| Setting | Value |
-| --- | --- |
-| Production branch | `main` |
-| Framework preset | React (Vite) |
-| Root directory | Repository root |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-
-The portfolio uses hash-based routes and requires no application environment variables. Start the first Cloudflare Pages deployment after publication has been approved.
+Cloudflare Pages builds this repository automatically on pushes to `main`. It runs `npm run build` from the repository root and publishes `dist/`. The portfolio uses hash-based routes and requires no application environment variables.
