@@ -70,3 +70,17 @@ Both providers supply HTTPS for their default domain. For a custom domain, add i
 The dashboard and Practice Lab are local synthetic simulations. Refreshing resets both sessions. The Warp Zone shows a static crystal when WebGL is unavailable or reduced motion is requested. The Three.js library is loaded separately and may trigger a bundle-size warning during the build.
 
 The browser suite uses Chromium, including an emulated touch viewport. Manual compatibility checks on physical mobile devices and Safari remain useful for comparing GPU performance and touch behavior.
+
+## Cloudflare Pages
+
+In Cloudflare, open Workers & Pages, choose Create application, then Pages and Connect to Git. Authorize the GitHub integration for `Krishna1687/plasma-grid`. Use the following build settings.
+
+| Setting | Value |
+| --- | --- |
+| Production branch | `main` |
+| Framework preset | React (Vite) |
+| Root directory | Repository root |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+
+The portfolio uses hash-based routes and requires no application environment variables. Start the first Cloudflare Pages deployment after publication has been approved.
